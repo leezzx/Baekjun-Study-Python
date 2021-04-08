@@ -86,3 +86,20 @@ for i in range(len(array)):
 for i in range(len(count)): # 리스트에 기록된 정렬 정보 확인
     for j in range(count[i]):
         print(i, end=" ") # 띄어쓰기를 구분으로 등장한 횟수만큼 인덱스 출력
+
+# 두 배열의 원소 교체 예체
+
+n, k = map(int, input().split()) # n, k 입력 받기
+a = list(map(int, input().split())) # 배열 a의 원소 입력 받기
+b = list(map(int, input().split())) # 배열 b의 원소 입력 받기
+
+a.sort() # a를 오름차순으로 정렬
+b.sort(reverse = True) # b를 내림차순으로 정렬
+
+for i in range(k):
+    if a[i] > b[i]:
+        a[i], b[i] = b[i], a[i]
+    else:
+        break
+
+print(sum(a))
