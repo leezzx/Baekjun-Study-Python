@@ -96,3 +96,24 @@ while start <= end:
         start = mid + 1
 
 print(result)
+
+
+
+# 정렬된 배열에서 특정 수의 개수 구하기 예제
+
+from bisect import bisect_left, bisect_right
+
+def count_by_range2(a, left_value, right_value): # 값이 [left_value, right_value]인 데이터의 개수를 반환하는 함수
+    right_index = bisect_right(a, right_value)
+    left_index = bisect_left(a, left_value)
+    return right_index - left_index
+
+n, x = map(int, input().split())
+array = list(map(int, input(),split()))
+
+count = count_by_range2(array, x, x) # 값이 [x, x] 범위에 있는 데이터의 개수 계산
+
+if count == 0: # 값이 x인 원소가 존재하지 않는다면
+    print(-1)
+else: # 값이 x인 원소가 존재한다면
+    print(count)
