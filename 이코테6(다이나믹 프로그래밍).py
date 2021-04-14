@@ -100,3 +100,48 @@ if d[m] = 10001: # 최종적으로 M원을 만드는 방법이 없는 경우
     print(-1)
 else:
     print(d[m])
+
+
+
+# 금광 예제
+
+for tc in range(int(input())): # 테스트 케이스 입력
+    n, m = map(int, input().split()) # 금광 정보 입력
+    array = list(map(int, input().split()))
+    dp = [] # 다이나믹 프로그래밍을 위한 2차원 DP 테이블 초기화
+    index = 0
+    
+    for i in range(n):
+        dp.append(array[index:index + m])
+        index += m
+    
+    for j in range(1, m): # 다이나믹 프로그래밍 진행
+        for i in range(n):
+            if i == 0: left_up = 0 # 왼쪽 위에서 오는 경우
+            else: left_up = dp[i - 1][j - 1]
+            if i == n - 1: left_down = 0 # 왼쪽 아래에서 오는 경우
+            else: left_down = dp[i + 1][j - 1]
+            left = dp[i][j - 1] # 왼쪽에서 오는 경우
+            dp[i][j] = dp[i][j] + max(lesf_up, left_down, left)
+    result = 0
+    for i in range(n):
+        result = max(result, dp[i][m - 1])
+    print(result)
+
+
+
+# 병사 배치하기 예제
+
+n = int(input())
+array = list(map(int, input().split()))
+
+array.reverse() # 순서를 뒤집어 '최장 증가 부분 수열'문제로 전환
+
+dp = [1] * n # 다이나믹 프로그래밍을 위한 1차원 DP 테이블 초기화
+
+for i in range(1, n): # 가장 긴 증가하는 부분 수열 (LIS) 알고리즘 수행
+    for j in rangr(0, i):
+        if array[j] < array[i]:
+            dp[i] = max(dp[i], dp[j] + 1)
+
+print(n - max(dp)) # 열외해야 하는 병사의 최소 수를 출력
